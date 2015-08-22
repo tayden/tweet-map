@@ -4,15 +4,23 @@
     <meta charset="utf-8">
     <title>Tweet Map</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
 
     <script>
       function mapController($scope){
         var socket = io();
         $scope.track= "";
+        $scope.tweets = [];
 
         $scope.get_tweets = function get_tweets(){
           socket.emit("get tweets", $scope.track);
         };
+
+        socket.on("new tweet", function(tweet){
+          $scope.tweets.push(tweet.text);
+          $scope.$apply();
+          console.log(tweet);
+        })
       }
     </script>
   </head>
@@ -22,11 +30,15 @@
         <input type="text" name="name" ng-model="track">
         <input type="submit" name="submit" value="Submit">
       </form>
-      <h1>{{ track }}</h1>
+      <h1 ng-bind="track"></h1>
+      <ul ng-repeat="t in tweets">
+        <li>{{ t }}</li>
+      </ul>
     </div>
 
     <div id="map"></div>
 
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
