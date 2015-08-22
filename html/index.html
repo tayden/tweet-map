@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
   <head>
     <meta charset="utf-8">
     <title>Tweet Map</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script>
+      function mapController($scope){
+        var socket = io();
+        $scope.track= "";
+
+        $scope.get_tweets = function get_tweets(){
+          socket.emit("get tweets", $scope.track);
+        };
+      }
+    </script>
   </head>
   <body>
-    <h1>Hello, World!</h1>
+    <div class="container" ng-controller="mapController">
+      <form ng-submit=get_tweets()>
+        <input type="text" name="name" ng-model="track">
+        <input type="submit" name="submit" value="Submit">
+      </form>
+      <h1>{{ track }}</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
   </body>
 </html>
