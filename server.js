@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var Twitter = require('twitter');
+var Twitter = require('twit');
 var twitter_config = require('./secret_twitter')
 
 app.use('/static', express.static('static'));
@@ -19,17 +19,13 @@ io.on('connection', function(socket){
   socket.on('get tweets', function(track){
     console.log("'" + track + "' stream requested");
 
-    twitter_client.stream('statuses/filter', {track: track}, function(stream) {
-      stream.on('data', function(tweet) {
-        if(tweet.coordinates){
-          socket.emit("new tweet", tweet);
-        }
-      });
-
-      stream.on('error', function(error) {
-        throw error;
-      });
+    var stream = twitter_client.stream('statuses/filter', { track: track });
+    stream.on('tweet', function (tweet) {
+      if(tweet.coordinates){
+        socket.emit("new tweet", tweet);
+      }
     });
+
   });
 });
 
