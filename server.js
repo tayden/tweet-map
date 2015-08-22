@@ -16,16 +16,26 @@ var twitter_client = new Twitter(twitter_config);
 io.on('connection', function(socket){
   console.log('a user connected');
 
+  var stream;
+
   socket.on('get tweets', function(track){
     console.log("'" + track + "' stream requested");
 
-    var stream = twitter_client.stream('statuses/filter', { track: track });
+    if(stream){
+      stream.stop();
+    }
+
+    stream = twitter_client.stream('statuses/filter', { track: track });
+    
     stream.on('tweet', function (tweet) {
       if(tweet.coordinates){
         socket.emit("new tweet", tweet);
       }
     });
 
+    stream.on('messages', function(m){
+      console.log(m);
+    })
   });
 });
 
