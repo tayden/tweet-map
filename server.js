@@ -21,9 +21,9 @@ io.on('connection', function(socket){
 
     twitter_client.stream('statuses/filter', {track: track}, function(stream) {
       stream.on('data', function(tweet) {
-        // if(tweet.coordinates){
-        socket.emit("new tweet", tweet);
-        // }
+        if(tweet.coordinates){
+          socket.emit("new tweet", tweet);
+        }
       });
 
       stream.on('error', function(error) {

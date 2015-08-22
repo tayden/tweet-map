@@ -18,26 +18,38 @@
         };
 
         socket.on("new tweet", function(tweet){
-          $scope.tweets.push(tweet.text);
+          $scope.tweets.push(tweet);
           $scope.$apply();
-          console.log(tweet);
+          L.marker(tweet.geo.coordinates).bindPopup(tweet.text).addTo(map);
         })
       }
     </script>
   </head>
   <body>
     <div class="container" ng-controller="mapController">
-      <form ng-submit=get_tweets()>
-        <input type="text" name="name" ng-model="track">
-        <input type="submit" name="submit" value="Submit">
-      </form>
-      <h1 ng-bind="track"></h1>
-      <ul ng-repeat="t in tweets">
-        <li>{{ t }}</li>
-      </ul>
-    </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="map"></div>
+        </div>
+      </div>
 
-    <div id="map"></div>
+      <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+          <form ng-submit=get_tweets()>
+            <div class="input-group">
+              <input class="form-control" type="text" name="name" placeholder="Search term" ng-model="track">
+              <span class="input-group-btn">
+                <input class="btn btn-default" type="submit" name="submit" value="Submit">
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- <ul ng-repeat="t in tweets">
+        <li>{{ t.text }}</li>
+      </ul> -->
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
