@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Tweet Map</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link rel="stylesheet" href="/static/css/index.css">
 
@@ -28,20 +29,19 @@
   <body>
     <div class="container" ng-controller="mapController">
       <div class="row">
-        <div class="col-xs-12">
           <div id="map"></div>
-        </div>
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <div class="col s12 m8 offset-m2">
           <form ng-submit=get_tweets()>
-            <div class="input-group">
-              <input class="form-control" type="text" name="name" placeholder="Search term" ng-model="track">
-              <span class="input-group-btn">
-                <input class="btn btn-default" type="submit" value="Stream">
-              </span>
+            <div class="input-field col s10">
+              <input type="text" name="name" id="track" ng-model="track">
+              <label for="track">Search term</label>
             </div>
+            <button class="btn-large waves-effect waves-light col s2" type="submit" name="action">
+              <i class="material-icons">search</i>
+            </button>
           </form>
         </div>
       </div>
@@ -49,7 +49,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
