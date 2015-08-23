@@ -10,7 +10,7 @@ Unfortunately, this API only allows one stream to be accessed per IP address, wh
 2. `cd` to the tweet-map route directory which has been cloned from github
 3. Run `npm install` to install relevant dependancies
 4. Register an app with [Twitter](https:apps.twitter.com/) and obtain the client and user keys and access tokens.
-5. Update server.js with you access tokens and keys.
+5. Update server.js with your access tokens and keys.
 6. Run `node server.js` and navigate in your browser to 127.0.0.1:3000
 
 Implementation by Taylor Denouden, 2015
